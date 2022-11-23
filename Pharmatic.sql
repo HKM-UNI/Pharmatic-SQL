@@ -2,7 +2,7 @@ create database pharmatic
 use pharmatic
 
 /*
-Descripción:
+Descripciï¿½n:
 	La farmacia necesita poder registrar los datos de sus clientes, por lo que la tabla
 	registra datos de contacto relacionado al cliente.
 
@@ -15,11 +15,11 @@ Descripción:
 	:-----------+-----------------+------------------------------------------------:
 	| apellidos | Doe Ipsum       | Not null                                       |
 	:-----------+-----------------+------------------------------------------------:
-	| correo    | john.d@mail.com | Único, debe contener @ y .                     |
+	| correo    | john.d@mail.com | ï¿½nico, debe contener @ y .                     |
 	:-----------+-----------------+------------------------------------------------:
-	| telefono  | 83481615        | Único, debe contener 8 dígitos                 |
+	| telefono  | 83481615        | ï¿½nico, debe contener 8 dï¿½gitos                 |
 	:-----------+-----------------+------------------------------------------------:
-	| sexo      | M               | Debe ser un carácter M o F                     |
+	| sexo      | M               | Debe ser un carï¿½cter M o F                     |
 	:-----------+-----------------+------------------------------------------------:
 	| edad      | 23              | Debe ser un numero mayor que 0 y menor que 150 |
 	'-----------'-----------------'------------------------------------------------'
@@ -40,7 +40,7 @@ CREATE TABLE Cliente (
 	CHECK(correo LIKE '%__@__%.__%'),
 
 	telefono int UNIQUE
-	CONSTRAINT [Verifique el formato del número celular. ej: '80808080']
+	CONSTRAINT [Verifique el formato del nï¿½mero celular. ej: '80808080']
 	CHECK(telefono <= 99999999 AND telefono >= 10000000),
 
 	sexo char(1) NOT NULL
@@ -48,7 +48,7 @@ CREATE TABLE Cliente (
 	CHECK(sexo = 'M' OR sexo = 'F'),
 
 	edad int
-	CONSTRAINT [Verifique que la edad sea válida]
+	CONSTRAINT [Verifique que la edad sea vï¿½lida]
 	CHECK(edad > 0 AND edad < 150)
 
 )
@@ -128,7 +128,7 @@ create table Producto (
 
 	idCategoria int FOREIGN KEY REFERENCES Categoria(idCategoria) NOT NULL,
 
-	nombre nvarchar(30) UNIQUE NOT NULL,
+	nombre nvarchar(50) UNIQUE NOT NULL,
 
 	descripcion nvarchar(150)
 
@@ -153,7 +153,7 @@ create table Proveedor (
 	direccion nvarchar(50),
 
 	telefono int UNIQUE
-	CONSTRAINT [Verifique el formato del número celular. ej: '80808080']
+	CONSTRAINT [Verifique el formato del nï¿½mero celular. ej: '80808080']
 	CHECK(telefono <= 99999999 AND telefono >= 10000000),
 
 )
