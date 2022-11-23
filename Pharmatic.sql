@@ -226,6 +226,8 @@ create table Tag (
 
 create table TagsProducto (
 
+	numeroTag int IDENTITY(1,1) PRIMARY KEY,
+
 	idTag int FOREIGN KEY REFERENCES Tag(idTag) NOT NULL,
 
 	idProducto int FOREIGN KEY REFERENCES Producto(idProducto) NOT NULL
