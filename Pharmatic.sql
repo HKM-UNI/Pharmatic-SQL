@@ -54,6 +54,46 @@ select * from Cliente
 insert into Cliente(idCliente,nombres,apellidos,correo,telefono,sexo,edad)
 values(1,'joni','gei','okay@mail.es','12345678','f',9)
 
+go
+-- Retorna el subtotal de una factura dado su id
+create function dbo.calcSubtotalFactura(@idFactura int)
+returns money
+as
+begin
+	return (
+		select coalesce(sum(monto), 0)
+		from Venta
+		where idFactura = @idFactura
+	)
+end
+go
+
+go
+-- Retorna el IVA aplicado a una factura dado su id
+create function dbo.calcSubIva(@idFactura int)
+returns money
+as
+begin
+	declare @subtotal as money
+	select @subtotal = subtotal from Factura where idFactura = @idFactura
+	return @subtotal * 0.15
+end
+go
+
+go
+-- Retorna el total de una factura dado su id
+create function dbo.calcTotalFactura(@idFactura int)
+returns money
+as
+begin
+	declare @subTotal money, @subIva money, @descuento money
+	select @subTotal = dbo.calcSubtotalFactura(@idFactura)
+	select @subIva = @subtotal * 0.15
+	select @descuento = descuento from Factura where idFactura = @idFactura
+	return (@subTotal + @subIva) * (100 - @descuento)/100;
+end
+go
+
 /*
 CONTEXTO:
 
@@ -62,21 +102,18 @@ CREATE TABLE Factura (
 
 	idFactura int IDENTITY(1,1) PRIMARY KEY,
 
-	subTotal money NOT NULL
-	CHECK(subTotal > 0),
+	idCliente int FOREIGN KEY REFERENCES Cliente(idCliente),
 
-	subIva money NOT NULL
-	CHECK(subTotal >= 0),
-
-	fecha timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	fecha datetime DEFAULT GetDate() NOT NULL,
 
 	descuento float NOT NULL
 	CHECK(descuento >= 0),
 
-	idCliente int FOREIGN KEY REFERENCES Cliente(idCliente),
+	subTotal as dbo.calcSubtotalFactura(idFactura),
 
-	total money NOT NULL
-	CHECK(total > 0)
+	subIva as dbo.calcSubIva(idFactura),
+
+	total as dbo.calcTotalFactura(idFactura)
 
 )
 
@@ -173,6 +210,20 @@ create table Lote (
 	CHECK(stock >= 0)
 )
 
+go
+-- Retorna el monto de la venta dado una cantidad por lote
+create function dbo.calcMontoVenta(@idLote int, @cantidad int)
+returns money
+as
+begin
+	return (
+		select precioVenta * @cantidad
+		from Lote
+		where idLote = @idLote
+	)
+end
+go
+
 create table Venta (
 
 	idVenta int IDENTITY(1,1) PRIMARY KEY,
@@ -184,8 +235,7 @@ create table Venta (
 	cantidad int DEFAULT(1) NOT NULL
 	CHECK(cantidad > 0),
 
-	monto money NOT NULL
-	CHECK(cantidad > 0)
+	monto as dbo.calcMontoVenta(idLote, cantidad)
 
 )
 
