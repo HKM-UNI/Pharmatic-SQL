@@ -147,14 +147,6 @@ create table Proveedor (
 
 )
 
-create table Propiedad (
-
-	idPropiedad int IDENTITY(1,1) PRIMARY KEY,
-
-	nombre nvarchar(30) UNIQUE NOT NULL
-
-)
-
 create table Lote (
 
 	idLote int IDENTITY(1,1) PRIMARY KEY,
@@ -163,9 +155,9 @@ create table Lote (
 
 	idProveedor int FOREIGN KEY REFERENCES Proveedor(idProveedor),
 
-	idPropiedad int FOREIGN KEY REFERENCES Propiedad(idPropiedad) NOT NULL,
-
 	idContenido int FOREIGN KEY REFERENCES Contenido(idContenido) NOT NULL,
+
+	enConsigna bit NOT NULL,
 
 	fechaIngreso date,
 
