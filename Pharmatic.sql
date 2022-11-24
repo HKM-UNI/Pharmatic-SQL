@@ -1,6 +1,22 @@
 create database pharmatic
 use pharmatic
 
+/*
+Descripcion:
+	La Categoria es una abstracción a la cual pertenece un
+	grupo de medicamentos (Productos).
+
+Esquema:
+	.-------------.--------------.------------------------.
+	|    Campo    |    Valor     |      Condiciones       |
+	:-------------+--------------+------------------------:
+	| idCategoria | 1            | PK, auto incrementable |
+	:-------------+--------------+------------------------:
+	| nombre*     | Antibioticos | Unico                  |
+	'-------------'--------------'------------------------'
+
+	*: El campo es requerido (Condicion NOT NULL)
+*/
 create table Categoria (
 
 	idCategoria int IDENTITY(1,1) PRIMARY KEY,
@@ -9,6 +25,26 @@ create table Categoria (
 
 )
 
+/*
+Descripcion:
+	El Producto es la entidad mas basica que identifica a un medicamento en la farmacia.
+
+Esquema:
+	.--------------.-----------------------------------------.------------------------.
+	|    Campo     |                  Valor               	 |      Condiciones       |
+	:--------------+-----------------------------------------+------------------------:
+	| idProducto   | 1                                       | PK, auto incrementable |
+	:--------------+-----------------------------------------+------------------------:
+	| idCategoria* | 1                                       |                        |
+	:--------------+-----------------------------------------+------------------------:
+	| nombre*      | Acetaminofen                            | Unico                  |
+	:--------------+-----------------------------------------+------------------------:
+	| descripcion  | Medicamento para aliviar el dolor		 |						  |
+	|			   | ligero o moderado, resfriados y fiebres |                        |
+	'--------------'-----------------------------------------'------------------------'
+
+	*: El campo es requerido (Condicion NOT NULL)
+*/
 create table Producto (
 
 	idProducto int IDENTITY(1,1) PRIMARY KEY,
@@ -171,9 +207,9 @@ go
 
 /*
 Descripcion:
-	La factura se encarga de asociar los productos que un cliente adquiere mediante
-	la entidad de Ventas. Esto representa una única transacción, con montos
-	computados en base a cada una de ellas.
+	La factura se encarga de asociar los productos que un cliente adquiere
+	mediante la entidad de Venta. Esto representa una unica transaccion,
+	con montos computados en base a cada una de ellas.
 
 Esquema:
 	.------------.-------------------.--------------------.
