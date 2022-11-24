@@ -35,7 +35,7 @@ Esquema:
 	:--------------+-----------------------------------------+------------------------:
 	| idProducto   | 1                                       | PK, auto incrementable |
 	:--------------+-----------------------------------------+------------------------:
-	| idCategoria* | 1                                       |                        |
+	| idCategoria* | 1                                       | FK                     |
 	:--------------+-----------------------------------------+------------------------:
 	| nombre*      | Acetaminofen                            | Unico                  |
 	:--------------+-----------------------------------------+------------------------:
@@ -57,6 +57,23 @@ create table Producto (
 
 )
 
+/*
+Descripcion:
+	La Medida es una normalizacion para identificar que
+	un Contenido esta dado en una unidad del sistema
+	internacional de unidades.
+
+Esquema:
+	.----------.-------.------------------------.
+	|  Campo   | Valor |      Condiciones       |
+	:----------+-------+------------------------:
+	| idMedida | 1     | PK, auto incrementable |
+	:----------+-------+------------------------:
+	| unidad   | mg    | Unico                  |
+	'----------'-------'------------------------'
+
+	*: El campo es requerido (Condicion NOT NULL)
+*/
 create table Medida (
 
 	idMedida int IDENTITY(1,1) PRIMARY KEY,
@@ -65,6 +82,24 @@ create table Medida (
 
 )
 
+/*
+Descripcion:
+	El Contenido es la cantidad de medicamento que puede haber en una
+	sola unidad de un Producto. Esto puede variar en algunos Lotes.
+
+Esquema:
+	.-------------.-------.------------------------.
+	|    Campo    | Valor |      Condiciones       |
+	:-------------+-------+------------------------:
+	| idContenido |     1 | PK, auto incrementable |
+	:-------------+-------+------------------------:
+	| idMedida*   |     1 | FK                     |
+	:-------------+-------+------------------------:
+	| cantidad*   |    50 | Mayor que 0            |
+	'-------------'-------'------------------------'
+
+	*: El campo es requerido (Condicion NOT NULL)
+*/
 create table Contenido (
 
 	idContenido int IDENTITY(1,1) PRIMARY KEY,
