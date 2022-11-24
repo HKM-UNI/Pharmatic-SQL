@@ -355,6 +355,34 @@ begin
 end
 go
 
+/*
+Descripcion:
+	La Venta representa la compra unica de un Producto por
+	un Cliente.
+
+Esquema:
+	.------------.-------.------------------------.
+	|   Campo    | Valor |      Condiciones       |
+	:------------+-------+------------------------:
+	| idVenta    |     1 | PK, auto incrementable |
+	:------------+-------+------------------------:
+	| idFactura* |     3 | FK                     |
+	:------------+-------+------------------------:
+	| idLote*    |     8 | FK                     |
+	:------------+-------+------------------------:
+	| cantidad*  |    10 | ¹                      |
+	:------------+-------+------------------------:
+	| monto°     |    50 | Auto computable        |
+	'------------'-------'------------------------'
+
+	*: El campo es requerido (Condicion NOT NULL)
+
+	¹: Si se especifica, debe ser mayor que 0.
+	   De lo contrario, su valor por defecto es 1.
+
+	°: El campo es computable. No debe especificarse.
+	   El valor es por propósitos de muestra.
+*/
 create table Venta (
 
 	idVenta int IDENTITY(1,1) PRIMARY KEY,
