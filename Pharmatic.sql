@@ -111,6 +111,28 @@ create table Contenido (
 
 )
 
+/*
+Descripcion:
+	La farmacia puede registrar opcionalmente la informacion de un Proveedor que suministra
+	Lotes de Producto.
+
+Esquema:
+	.-------------.--------------------------------------.--------------------------------.
+	|    Campo    |                Valor                 |          Condiciones           |
+	:-------------+--------------------------------------+--------------------------------:
+	| idProveedor | 1                                    | PK, auto incrementable         |
+	:-------------+--------------------------------------+--------------------------------:
+	| nombres*    | Jane Doe                             | Unico                          |
+	:-------------+--------------------------------------+--------------------------------:
+	| correo      | jane.d@mail.com                      | Unico                          |
+	:-------------+--------------------------------------+--------------------------------:
+	| direccion   | Rotonda El Gueguense, 30mts al oeste |                                |
+	:-------------+--------------------------------------+--------------------------------:
+	| telefono    | 76459837                             | Unico, debe contener 8 digitos |
+	'-------------'--------------------------------------'--------------------------------'
+
+	*: El campo es requerido (Condicion NOT NULL)
+*/
 create table Proveedor (
 
 	idProveedor int IDENTITY(1,1) PRIMARY KEY NOT NULL,
