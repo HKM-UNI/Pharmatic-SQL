@@ -148,6 +148,38 @@ create table Proveedor (
 
 )
 
+/*
+Descripcion:
+	Los Lotes puede contener diferentes presentaciones de un Producto,
+	las cuales varian en multiples caracteristicas.
+
+Esquema:
+	.-------------------.--------------.------------------------.
+	|       Campo       |    Valor     |      Condiciones       |
+	:-------------------+--------------+------------------------:
+	| idLote            | 1            | PK, auto incrementable |
+	:-------------------+--------------+------------------------:
+	| idProducto*       | 25           | FK                     |
+	:-------------------+--------------+------------------------:
+	| idProveedor       | 1            | FK                     |
+	:-------------------+--------------+------------------------:
+	| idContenido*      | 3            | FK                     |
+	:-------------------+--------------+------------------------:
+	| enConsigna*       | 1            |                        |
+	:-------------------+--------------+------------------------:
+	| fechaIngreso      | '2020-07-21' |                        |
+	:-------------------+--------------+------------------------:
+	| fechaVencimiento* | '2023-05-18' |                        |
+	:-------------------+--------------+------------------------:
+	| precioCompra      | 300          | Mayor que 0            |
+	:-------------------+--------------+------------------------:
+	| precioVenta*      | 6            | Mayor que 0            |
+	:-------------------+--------------+------------------------:
+	| stock*            | 75           | Mayor o igual que 0    |
+	'-------------------'--------------'------------------------'
+
+	*: El campo es requerido (Condicion NOT NULL)
+*/
 create table Lote (
 
 	idLote int IDENTITY(1,1) PRIMARY KEY,
