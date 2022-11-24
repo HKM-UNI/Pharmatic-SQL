@@ -398,6 +398,23 @@ create table Venta (
 
 )
 
+/*
+Descripcion:
+	Tag es un extranjerismo de la palabra 'etiqueta'. En este
+	contexto, permite identificar a un grupo de productos mediante
+	palabras clave.
+
+Esquema:
+	.---------.-------.------------------------.
+	|  Campo  | Valor |      Condiciones       |
+	:---------+-------+------------------------:
+	| idTag   | 1     | PK, auto incrementable |
+	:---------+-------+------------------------:
+	| nombre* | gripe | Unico                  |
+	'---------'-------'------------------------'
+
+	*: El campo es requerido (Condicion NOT NULL)
+*/
 create table Tag (
 
 	idTag int IDENTITY(1,1) PRIMARY KEY,
@@ -406,6 +423,24 @@ create table Tag (
 
 )
 
+/*
+Descripcion:
+	TagsProducto es una entidad auxiliar para asociar multiples
+	etiquetas a uno o mas Productos.
+
+Esquema:
+	.-------------.-------.------------------------.
+	|    Campo    | Valor |      Condiciones       |
+	:-------------+-------+------------------------:
+	| numeroTag   |     1 | PK, auto incrementable |
+	:-------------+-------+------------------------:
+	| idTag*      |     1 | FK                     |
+	:-------------+-------+------------------------:
+	| idProducto* |    15 | FK                     |
+	'-------------'-------'------------------------'
+
+	*: El campo es requerido (Condicion NOT NULL)
+*/
 create table TagsProducto (
 
 	numeroTag int IDENTITY(1,1) PRIMARY KEY,
