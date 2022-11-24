@@ -84,37 +84,28 @@ create table Lote (
 
 /*
 Descripcion:
-	La farmacia necesita poder registrar los datos de sus clientes, por lo que la tabla
-	registra datos personales relacionados al cliente.
-	
-Contiene:
-	idCliente:	 codigo unico por cliente
-	nombres:	 El o los nombres del cliente que son obligatorios
-	apellidos:	 El o los apellidos del cliente que son obligatorios
-	correo:		 La direccion de coreo que puede o no asociarse pero que si se hace, esta debe ser valida
-	telefono:	 Numero de telefono que puede o no ser asociado pero en caso de hacerse este debe ser valido
-	sexo:		 Sexo del cliente, obligatorio y solo puede ser "M" o "F"
-	edad:		 La edad del cliente que debe ser mayor que 0 y menor a 150
+	La farmacia necesita poder registrar los datos de sus clientes de manera opcional.
 
-Ejemplo:
-	.-----------.-----------------.------------------------------------------------.
-	|   campo   |      valor      |                  condiciones                   |
-	:-----------+-----------------+------------------------------------------------:
-	| idCliente | 243             | PK, auto incremental                           |
-	:-----------+-----------------+------------------------------------------------:
-	| nombres   | John Lorem      | Not null                                       |
-	:-----------+-----------------+------------------------------------------------:
-	| apellidos | Doe Ipsum       | Not null                                       |
-	:-----------+-----------------+------------------------------------------------:
-	| correo    | john.d@mail.com | Unico, debe contener @ y .                     |
-	:-----------+-----------------+------------------------------------------------:
-	| telefono  | 83481615        | Unico, debe contener 8 digitos                 |
-	:-----------+-----------------+------------------------------------------------:
-	| sexo      | M               | Debe ser un caracter M o F                     |
-	:-----------+-----------------+------------------------------------------------:
-	| edad      | 23              | Debe ser un numero mayor que 0 y menor que 150 |
-	'-----------'-----------------'------------------------------------------------'
-	
+Esquema:
+	.------------.-----------------.------------------------------------------------.
+	|   Campo    |      Valor      |                  Condiciones                   |
+	:------------+-----------------+------------------------------------------------:
+	| idCliente* | 1               | PK, auto incrementable                         |
+	:------------+-----------------+------------------------------------------------:
+	| nombres*   | John Lorem      |                                                |
+	:------------+-----------------+------------------------------------------------:
+	| apellidos* | Doe Ipsum       |                                                |
+	:------------+-----------------+------------------------------------------------:
+	| correo     | john.d@mail.com | Unico, debe contener '@' y '.'                 |
+	:------------+-----------------+------------------------------------------------:
+	| telefono   | 83481615        | Unico, debe contener 8 digitos                 |
+	:------------+-----------------+------------------------------------------------:
+	| sexo*      | M               | Debe ser un caracter 'M' o 'F'                 |
+	:------------+-----------------+------------------------------------------------:
+	| edad       | 23              | Debe ser un numero mayor que 0 y menor que 150 |
+	'------------'-----------------'------------------------------------------------'
+
+	*: El campo es requerido (Condicion NOT NULL)
 */
 create table Cliente (
 
@@ -180,36 +171,31 @@ go
 
 /*
 Descripcion:
-	La factura es la que se encarga de reunir todos los productos que adquiere el cliente(ventas) en una sola transaccion
-	
-Contiene:
-	idFactura:	 codigo unico por factura
-	idCliente:	 Sexo del cliente, obligatorio y solo puede ser "M" o "F"
-	fecha:		 La direccion de coreo que puede o no asociarse pero que si se hace, esta debe ser valida
-	descuento:	 Numero de telefono que puede o no ser asociado pero en caso de hacerse este debe ser valido
-	subTotal:	 El o los nombres del cliente que son obligatorios
-	subIva:		 El o los apellidos del cliente que son obligatorios
-	total:		 La edad del cliente que debe ser mayor que 0 y menor a 150
+	La factura se encarga de asociar los productos que un cliente adquiere mediante
+	la entidad de Ventas. Esto representa una única transacción, con montos
+	computados en base a cada una de ellas.
 
-Ejemplo:
-	.-----------.-----------------.------------------------------------------------.
-	|   campo   |      valor      |                  condiciones                   |
-	:-----------+-----------------+------------------------------------------------:
-	| idCliente | 243             | PK, auto incremental                           |
-	:-----------+-----------------+------------------------------------------------:
-	| nombres   | John Lorem      | Not null                                       |
-	:-----------+-----------------+------------------------------------------------:
-	| apellidos | Doe Ipsum       | Not null                                       |
-	:-----------+-----------------+------------------------------------------------:
-	| correo    | john.d@mail.com | unico, debe contener @ y .                     |
-	:-----------+-----------------+------------------------------------------------:
-	| telefono  | 83481615        | unico, debe contener 8 digitos                 |
-	:-----------+-----------------+------------------------------------------------:
-	| sexo      | M               | Debe ser un caracter M o F                     |
-	:-----------+-----------------+------------------------------------------------:
-	| edad      | 23              | Debe ser un numero mayor que 0 y menor que 150 |
-	'-----------'-----------------'------------------------------------------------'
-	
+Esquema:
+	.------------.-------------------.--------------------.
+	|   Campo    |       Valor       | Valor por defecto  |
+	:------------+-------------------+--------------------:
+	| idFactura° | 1                 | Auto incrementable |
+	:------------+-------------------+--------------------:
+	| idCliente  | 1                 |                    |
+	:------------+-------------------+--------------------:
+	| fecha      | '2022-11-24 8:07' | Fecha actual       |
+	:------------+-------------------+--------------------:
+	| descuento  | 5                 | 0                  |
+	:------------+-------------------+--------------------:
+	| subTotal°  | 105               | Auto computable    |
+	:------------+-------------------+--------------------:
+	| subIva°    | 15.75             | Auto computable    |
+	:------------+-------------------+--------------------:
+	| total°     | 120.75            | Auto computable    |
+	'------------'-------------------'--------------------'
+
+	°:	El campo es computable. No debe especificarse.
+		El valor es por propósitos de muestra.
 */
 create table Factura (
 
